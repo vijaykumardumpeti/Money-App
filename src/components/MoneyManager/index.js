@@ -116,12 +116,12 @@ export default class MoneyManager extends Component {
       }
     })
 
-    balance = income - expenses
+    balance += income - expenses
     return balance
   }
 
   render() {
-    const {transactionsList} = this.state
+    const {transactionsList, titleInput, amountInput, optionId} = this.state
 
     const balanceAmount = this.getBalance()
     const incomeAmount = this.getIncome()
@@ -134,7 +134,7 @@ export default class MoneyManager extends Component {
             <div className="name-container">
               <h1>Hi,Richard</h1>
               <p>Welcome back to your</p>
-              <p href="jaja">Money Manager</p>
+              <p>Money Manager</p>
             </div>
 
             <MoneyDetails
@@ -152,6 +152,7 @@ export default class MoneyManager extends Component {
                       TITLE
                     </label>
                     <input
+                      value={titleInput}
                       onChange={this.onTitleChange}
                       className="input-element"
                       id="title"
@@ -164,6 +165,7 @@ export default class MoneyManager extends Component {
                       AMOUNT
                     </label>
                     <input
+                      value={amountInput}
                       onChange={this.onAmountChange}
                       className="input-element"
                       id="amount"
@@ -176,6 +178,7 @@ export default class MoneyManager extends Component {
                       TYPE
                     </label>
                     <select
+                      value={optionId}
                       onChange={this.onTypeChange}
                       className="input-element"
                       id="selector"

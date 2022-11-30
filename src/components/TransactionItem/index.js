@@ -18,6 +18,7 @@ export default class TransactionItem extends Component {
           <p className="column2">{amount}</p>
           <p className="column3">{type}</p>
           <button
+            testid="delete"
             onClick={this.onDeleteFunction}
             className={`button-style ${'column4'}`}
             type="button"

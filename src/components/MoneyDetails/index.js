@@ -14,10 +14,10 @@ export default class MoneyDetails extends Component {
             src="https://assets.ccbp.in/frontend/react-js/money-manager/balance-image.png"
           />
           <div>
-            <p testid="balanceAmount" className="text">
-              Your Balance
+            <p className="text">Your Balance</p>
+            <p testid="balanceAmount" className="RPS">
+              RS {balanceAmount}
             </p>
-            <p className="RPS">RS {balanceAmount}</p>
           </div>
         </li>
         <li className={`money-detail-container ${'your-income'}`}>
@@ -27,10 +27,10 @@ export default class MoneyDetails extends Component {
             src="https://assets.ccbp.in/frontend/react-js/money-manager/income-image.png"
           />
           <div>
-            <p testid="incomeAmount" className="text">
-              Your Income
+            <p className="text">Your Income</p>
+            <p testid="incomeAmount" className="RPS">
+              RS {incomeAmount}
             </p>
-            <p className="RPS">RS {incomeAmount}</p>
           </div>
         </li>
         <li className={`money-detail-container ${'your-expenses'}`}>
@@ -40,10 +40,10 @@ export default class MoneyDetails extends Component {
             src="https://assets.ccbp.in/frontend/react-js/money-manager/expenses-image.png"
           />
           <div>
-            <p testid="expensesAmount" className="text">
-              Your Expenses
+            <p className="text">Your Expenses</p>
+            <p testid="expensesAmount" className="RPS">
+              RS {expensesAmount}
             </p>
-            <p className="RPS">RS {expensesAmount}</p>
           </div>
         </li>
       </ul>
