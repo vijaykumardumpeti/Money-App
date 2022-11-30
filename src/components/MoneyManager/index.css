@@ -27,14 +27,6 @@
   align-items: flex-start;
   padding-left: 10px;
 }
-.money-details-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-right: 30px;
-}
 .transaction-and-history-container {
   display: flex;
   flex-direction: row;
@@ -176,9 +168,6 @@
   }
   .name-container {
     width: 360px;
-  }
-  .money-details-container {
-    margin-right: 35px;
   }
 }
 h1 {

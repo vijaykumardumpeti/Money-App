@@ -52,4 +52,15 @@
     margin-left: 13px;
     margin-right: 13px;
   }
+  .money-details-container {
+    margin-right: 35px;
+  }
+}
+.money-details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-right: 30px;
 }

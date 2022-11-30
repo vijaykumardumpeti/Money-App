@@ -16,51 +16,117 @@ const transactionTypeOptions = [
   },
 ]
 
-const moneyDetailsList = [
-  {
-    id: 0,
-    className: 'your-balance',
-    imageUrl:
-      'https://assets.ccbp.in/frontend/react-js/money-manager/balance-image.png',
-    text: 'Your Balance',
-    alt: 'balance',
-  },
-  {
-    id: 1,
-    className: 'your-income',
-    imageUrl:
-      'https://assets.ccbp.in/frontend/react-js/money-manager/income-image.png',
-    text: 'Your Income',
-    alt: 'income',
-  },
-  {
-    id: 2,
-    className: 'your-expenses',
-    imageUrl:
-      'https://assets.ccbp.in/frontend/react-js/money-manager/expenses-image.png',
-    text: 'Your Expenses',
-    alt: 'expenses',
-  },
-]
-
-const listA = [
-  {
-    id: uuidv4(),
-    salary: 'Salary',
-    rupees: 'RS 50000',
-    type: 'income',
-  },
-  {
-    id: uuidv4(),
-    salary: 'Salary',
-    rupees: 'RS 50000',
-    type: 'income',
-  },
-]
-
 // Write your code here
 export default class MoneyManager extends Component {
+  state = {
+    titleInput: '',
+    amountInput: '',
+    optionId: transactionTypeOptions[0].optionId,
+    transactionsList: [],
+  }
+
+  onTitleChange = event => {
+    this.setState({
+      titleInput: event.target.value,
+    })
+  }
+
+  onAmountChange = event => {
+    this.setState({
+      amountInput: event.target.value,
+    })
+  }
+
+  onTypeChange = event => {
+    this.setState({
+      optionId: event.target.value,
+    })
+  }
+
+  submitDetailsToList = event => {
+    event.preventDefault()
+
+    const {titleInput, amountInput, optionId} = this.state
+
+    const moneyType = transactionTypeOptions.find(
+      eachObject => eachObject.optionId === optionId,
+    )
+    const {displayText} = moneyType
+    const historyItem = {
+      id: uuidv4(),
+      title: titleInput,
+      amount: parseInt(amountInput),
+      type: displayText,
+    }
+
+    this.setState(prevState => ({
+      transactionsList: [...prevState.transactionsList, historyItem],
+      titleInput: '',
+      amountInput: '',
+      optionId: transactionTypeOptions[0].optionId,
+    }))
+  }
+
+  deleteTransaction = id => {
+    const {transactionsList} = this.state
+    const filteredList = transactionsList.filter(
+      eachObject => eachObject.id !== id,
+    )
+
+    this.setState({
+      transactionsList: filteredList,
+    })
+  }
+
+  getIncome = () => {
+    const {transactionsList} = this.state
+    let income = 0
+
+    transactionsList.forEach(eachObject => {
+      if (eachObject.type === transactionTypeOptions[0].displayText) {
+        income += eachObject.amount
+      }
+    })
+    return income
+  }
+
+  getExpenses = () => {
+    const {transactionsList} = this.state
+    let expenses = 0
+    transactionsList.forEach(eachObject => {
+      if (eachObject.type === transactionTypeOptions[1].displayText) {
+        expenses += eachObject.amount
+      }
+    })
+    return expenses
+  }
+
+  getBalance = () => {
+    const {transactionsList} = this.state
+
+    let balance = 0
+    let income = 0
+    let expenses = 0
+
+    transactionsList.forEach(eachObject => {
+      if (eachObject.type === transactionTypeOptions[0].displayText) {
+        income += eachObject.amount
+      } else {
+        expenses += eachObject.amount
+      }
+    })
+
+    balance = income - expenses
+    return balance
+  }
+
   render() {
+    const {transactionsList} = this.state
+
+    const balanceAmount = this.getBalance()
+    const incomeAmount = this.getIncome()
+    const expensesAmount = this.getExpenses()
+
     return (
       <>
         <div className="bg-container">
@@ -70,20 +136,23 @@ export default class MoneyManager extends Component {
               <p>Welcome back to your</p>
               <p href="jaja">Money Manager</p>
             </div>
-            <ul className="money-details-container">
-              {moneyDetailsList.map(eachObject => (
-                <MoneyDetails eachObject={eachObject} key={eachObject.id} />
-              ))}
-            </ul>
+
+            <MoneyDetails
+              balanceAmount={balanceAmount}
+              incomeAmount={incomeAmount}
+              expensesAmount={expensesAmount}
+            />
+
             <div className="transaction-and-history-container">
               <div className="transaction-container">
                 <h1>Add Transaction</h1>
-                <form>
+                <form onSubmit={this.submitDetailsToList}>
                   <div className="input-container">
                     <label className="label" htmlFor="title">
                       TITLE
                     </label>
                     <input
+                      onChange={this.onTitleChange}
                       className="input-element"
                       id="title"
                       type="text"
@@ -95,6 +164,7 @@ export default class MoneyManager extends Component {
                       AMOUNT
                     </label>
                     <input
+                      onChange={this.onAmountChange}
                       className="input-element"
                       id="amount"
                       type="text"
@@ -105,7 +175,11 @@ export default class MoneyManager extends Component {
                     <label className="label" htmlFor="selector">
                       TYPE
                     </label>
-                    <select className="input-element" id="selector">
+                    <select
+                      onChange={this.onTypeChange}
+                      className="input-element"
+                      id="selector"
+                    >
                       {transactionTypeOptions.map(eachObject => (
                         <option
                           key={eachObject.optionId}
@@ -130,10 +204,11 @@ export default class MoneyManager extends Component {
                   <p className="last-column">Type</p>
                 </div>
                 <ul className="unordered-list-container">
-                  {listA.map(eachObject => (
+                  {transactionsList.map(eachObject => (
                     <TransactionItem
                       eachObject={eachObject}
                       key={eachObject.id}
+                      deleteTransaction={this.deleteTransaction}
                     />
                   ))}
                 </ul>
