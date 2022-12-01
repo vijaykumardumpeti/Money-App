@@ -6,8 +6,8 @@ export default class MoneyDetails extends Component {
     const {balanceAmount, incomeAmount, expensesAmount} = this.props
 
     return (
-      <ul className="money-details-container">
-        <li className={`money-detail-container ${'your-balance'}`}>
+      <div className="money-details-container">
+        <div className={`money-detail-container ${'your-balance'}`}>
           <img
             className="money-image"
             alt="balance"
@@ -19,8 +19,8 @@ export default class MoneyDetails extends Component {
               RS {balanceAmount}
             </p>
           </div>
-        </li>
-        <li className={`money-detail-container ${'your-income'}`}>
+        </div>
+        <div className={`money-detail-container ${'your-income'}`}>
           <img
             className="money-image"
             alt="income"
@@ -32,8 +32,8 @@ export default class MoneyDetails extends Component {
               RS {incomeAmount}
             </p>
           </div>
-        </li>
-        <li className={`money-detail-container ${'your-expenses'}`}>
+        </div>
+        <div className={`money-detail-container ${'your-expenses'}`}>
           <img
             className="money-image"
             alt="expenses"
@@ -45,8 +45,8 @@ export default class MoneyDetails extends Component {
               RS {expensesAmount}
             </p>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     )
   }
 }

@@ -15,7 +15,7 @@ export default class TransactionItem extends Component {
       <li key={eachObject.id} className="transaction-item">
         <div className="items-container">
           <p className="column1">{title}</p>
-          <p className="column2">{amount}</p>
+          <p className="column2">RS {amount}</p>
           <p className="column3">{type}</p>
           <button
             testid="delete"
